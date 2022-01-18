@@ -1,16 +1,16 @@
 function ut = d2udx2(t,u)
 	%{
-	Universidade Federal da Paraíba
-	Centro de Tecnologia
-	Departamento de Engenharia Mecânica
-
-	Trabalho de Conclusão de Curso
-	
-	Análise Numérica de Condução Transiente com Termo Fonte Variável em
-	Varetas Combustíveis de Reatores Nucleares pelo Método das Linhas 
-
-	Discente: Thiago Ney Evaristo Rodrigues
-	Orientador: Dr. Jacques César dos Santos
+	Federal University of Paraiba
+    Technology Center
+    Mechanical Engineering Department
+    
+    Undergraduate Thesis
+     
+    Numerical Analysis of Transient Conduction with Variable Source Term in
+    Fuel Rods of Nuclear Reactors by the Line Method 
+    
+    Student: Thiago Ney Evaristo Rodrigues
+    Advisor: Dr. Jacques Cesar dos Santos
 	%}
 
 	% Problem parameters

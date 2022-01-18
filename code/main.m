@@ -1,15 +1,15 @@
 %{
-Universidade Federal da Paraíba
-Centro de Tecnologia
-Departamento de Engenharia Mecânica
+Federal University of Paraiba
+Technology Center
+Mechanical Engineering Department
 
-Trabalho de Conclusão de Curso
+Undergraduate Thesis
  
-Análise Numérica de Condução Transiente com Termo Fonte Variável em
-Varetas Combustíveis de Reatores Nucleares pelo Método das Linhas 
+Numerical Analysis of Transient Conduction with Variable Source Term in
+Fuel Rods of Nuclear Reactors by the Line Method 
 
-Discente: Thiago Ney Evaristo Rodrigues
-Orientador: Dr. Jacques César dos Santos
+Student: Thiago Ney Evaristo Rodrigues
+Advisor: Dr. Jacques Cesar dos Santos
 %}
 
 clear
