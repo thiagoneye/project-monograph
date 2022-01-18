@@ -1,0 +1,56 @@
+\documentclass[12pt]{report}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[a4paper, left=3cm, right=2cm, top=3cm, bottom=2cm]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{graphicx}
+%\usepackage{subcaption}
+\usepackage{subfig}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+%\usepackage{xcolor}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{multirow}
+%\usepackage{amscd}
+%\usepackage[all]{xy}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\usepackage{csquotes}
+%\usepackage[backend=biber, citestyle=authoryear, natbib]{biblatex}
+
+%\addbibresource{refs.bib}
+
+\begin{document}
+
+\include{preamble/titlepage}        % Capa
+\include{preamble/coversheet}       % Folha de Rosto (contra capa)
+\include{preamble/catalogsheet}     % Ficha Catalográfica
+\include{preamble/approvalsheet}    % Folha de Aprovação
+\include{preamble/acknowledgements} % Agradecimentos
+\include{preamble/abstract}         % Resumo
+
+\listoffigures % Lista de Figuras
+\listoftables  % Lista de Tabelas
+
+\tableofcontents % Sumário
+
+\include{chapters/chap1} % Introdução
+\include{chapters/chap2} % Fundamentação Teórica
+\include{chapters/chap3} % Metodologia
+\include{chapters/chap4} % Resultados e Discussão
+\include{chapters/chap5} % Conclusões
+
+\appendix
+\include{chapters/attach} % Anexos
+
+%\printbibliography
+
+\end{document}
