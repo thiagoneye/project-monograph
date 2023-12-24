@@ -1,2 +1,51 @@
-\chapter{Introdução}
+\chapter{Introdução} \label{chap:introduction}
 
+O consumo energético global é um tema de importância crítica na atualidade, marcada por uma crescente demanda por energia impulsionada pelo crescimento populacional, industrialização e avanços tecnológicos. A geração, o consumo e a distribuição de energia desempenham um papel fundamental em questões que vão desde a economia global e segurança energética até o meio ambiente e as mudanças climáticas.
+
+Neste contexto, o consumo energético se apresenta como um desafio complexo e, ao mesmo tempo, uma oportunidade essencial para o desenvolvimento da nossa sociedade globalizada. À medida que o mundo continua a evoluir, várias questões interconectadas emergem como pilares fundamentais no debate sobre energia.
+
+No que diz respeito às projeções de consumo energético, o crescimento populacional em constante ascensão, a urbanização acelerada e os avanços tecnológicos prenunciam um aumento substancial na demanda por energia nas próximas décadas. Segundo a \citet{ExxonMobil2023}, estima-se um crescimento expressivo de aproximadamente \(15\%\) até 2050 em relação aos níveis de 2021. Esta crescente demanda exerce uma pressão considerável sobre os sistemas de energia em escala global, fomentando a busca incessante por fontes de energia mais eficientes e sustentáveis.
+
+A matriz energética assume papel central nesse cenário. Grandes potências mundiais, como a China, os Estados Unidos e a Índia, possuem matrizes diversificadas e estão no centro das discussões sobre como equilibrar o suprimento de energia com a responsabilidade ambiental. O Brasil, por sua vez, destaca-se com uma matriz energética altamente limpa, impulsionada em grande parte pela energia hidrelétrica, com uma fatia significativa de \(56,8\%\) da energia elétrica produzida no Brasil, segundo \citet{epe2022}.
+
+Em meio as discussões está a polêmica questão das usinas nucleares. Elas oferecem vantagens expressivas, como a alta eficiência na geração de energia e a baixa emissão de gases de efeito estufa. No entanto, é repleta por desafios de segurança, históricos de acidentes impactantes, como Chernobyl e Fukushima, e preocupações com o armazenamento seguro de resíduos nucleares.
+
+O projeto de energia nuclear é complexo e enfrenta desafios significativos. Isso envolve compreender profundamente a física nuclear, projetar reatores seguros, gerenciar resíduos altamente radioativos, selecionar materiais resistentes à radiação, assegurar segurança operacional, cumprir regulamentações rigorosas, conduzir pesquisas contínuas e gerenciar um ciclo de vida longo. Essa complexidade exige conhecimento multidisciplinar e um compromisso de longo prazo com a segurança e a inovação tecnológica.
+
+Destacamos especialmente a importância do estudo da transferência de calor em combustíveis nucleares. Essa pesquisa é essencial para o projeto seguro de usinas nucleares, monitoramento de níveis de calor toleráveis e prevenção de acidentes graves. Uma compreensão profunda desse aspecto contribui diretamente para a segurança e eficiência dessas instalações críticas.
+
+\section{Motivação}
+
+A motivação para realizar o presente estudo, simulação numérico de um problema clássico de transferência de calor, reside no interesse de compreender e analisar, de maneira detalhada e precisa, o comportamento térmico de sistemas. Problemas de transferência de calor são universais em diversas áreas, desde os processos industriais até os dispositivos eletrônicos. A abordagem numérica se torna essencial quando lidamos com geometrias complexas, condições de contorno variadas e/ou interações térmicas não triviais, para as quais as soluções analíticas podem ser inviáveis.
+
+Ao empregar métodos numéricos podemos modelar sistemas levando em consideração não apenas a condução de calor, mas também fenômenos mais complexos, como a convecção e a radiação térmica. Essas simulações numéricas proporcionam ideias valiosas sobre os padrões de temperatura, distribuição de calor e eficiência térmica do sistema em estudo.
+
+Por fim, a aplicação dos reatores nucleares se justifica como uma fonte potente e eficiente de eletricidade, apresentando o potencial de atender à crescente demanda global de energia de maneira sustentável. Além disso, a pesquisa nesse campo contribui significativamente para o avanço científico, proporcionando insights profundos sobre a física nuclear e os processos termonucleares. Vale ressaltar que a utilidade dos reatores não se limita à geração de eletricidade, expandindo-se para a produção de isótopos destinados a aplicações médicas, o desenvolvimento contínuo de tecnologias nucleares inovadoras e a contribuição para a redução das emissões de gases de efeito estufa. Dessa forma, a abordagem abrangente dos reatores nucleares destaca sua importância em diversas áreas.
+
+\section{Objetivos}
+
+\subsection{Objetivo Geral}
+
+Este trabalho tem como objetivo apresentar um estudo numérico sobre a transferência de calor em varetas de combustível nuclear, enfocando os aspectos transitórios desse processo, com ênfase nos mecanismos de condução e convecção, além de considerar a geração interna de calor, inerente ao funcionamento do combustível nuclear.
+
+\subsection{Objetivos Específicos}
+
+\begin{itemize}
+    \item Aplicação do Método Numérico das Linhas (NUMOL);
+    \item Estudo de convergência de malha;
+    \item Simulação de diferentes fontes de calor;
+    \item Análise da influência da variação de termos que modelam o fenômeno;
+    \item Comparação dos resultados com a literatura.
+\end{itemize}
+
+\section{Estrutura do Trabalho}
+
+No capítulo \ref{chap:introduction}, fornecemos uma contextualização do tema abordado neste trabalho, discutindo o consumo de energia no contexto contemporâneo, a composição da matriz energética global e a relevância da energia nuclear. Além disso, apresentamos os objetivos do estudo e concluímos esta seção com uma descrição da estrutura do texto que se segue.
+
+No capítulo \ref{chap:theory}, abordamos a teoria por trás do funcionamento de reatores nucleares, bem como os mecanismos envolvidos na modelagem e resolução de problemas de transferência de calor. É importante ressaltar que esses tópicos são apresentados de maneira introdutória, com o propósito de revisar conceitos essenciais para os capítulos subsequentes. Portanto, uma análise mais detalhada desses temas está além do escopo deste trabalho.
+
+No capítulo \ref{chap:methodology}, aplicamos os conceitos abordados no capítulo \ref{chap:theory}. Iniciamos com a modelagem matemática do objeto de estudo, seguida pela discretização numérica do problema, utilizando os métodos NUMOL e Diferenças Finitas. Finalizamos este capítulo com uma visão geral sobre a resolução de sistemas de equações diferenciais, com ênfase no solver utilizado, o ode15s.
+
+No capítulo \ref{chap:results}, apresentamos e discutimos os resultados obtidos. Nesta seção, exploramos estudos que analisam a convergência do refinamento das malhas numéricas no problema em questão, fazemos comparações com resultados da literatura e fornecemos uma interpretação desses resultados no contexto da transferência de calor em reatores nucleares.
+
+No capítulo \ref{chap:conclusion}, concluímos este trabalho com uma visão geral, destacando as principais conclusões alcançadas durante o estudo. Além disso, discutimos a relevância do tema abordado.
