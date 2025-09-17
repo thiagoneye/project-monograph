@@ -14,9 +14,9 @@ Para a presente análise, buscou-se analisar o máximo erro absoluto de uma malh
     \epsilon = \max | \Delta \theta | = \max | \theta(r,t_{n+1}) - \theta(r,t_{n}) |
 \end{gather}
 
-Através do estudo do refinamento da malha temporal, pode-se observar que, para malhas com até 1.281 pontos, não foram identificados erros significativos, como registrado na Tabela \ref{tab:error_in_the_temporal_mesh}. Quando o número de pontos variou de 1.281 para 20.481, observou-se uma discrepância praticamente insignificante.
+Através do estudo do refinamento da malha temporal, pode-se observar que, ao refinar a malha numérica, não foram identificados erros significativos, como registrado na Tabela \ref{tab:error_in_the_temporal_mesh}.
 
-No entanto, é importante destacar que, para malhas com mais de 40.961 pontos, o erro passou a ser significativo. Essa discrepância pode ser atribuída à formação de singularidades resultantes de um refinamento excessivo da malha em conjunto à tolerância de erro absoluto e/ou relativo predefinida no solver utilizado.
+O resultado de erro nulo obtido é um artefato metodológico que se origina da natureza dos solvers de EDO adaptativo. Estes solvers não utilizam os pontos de tempo fornecidos pelo usuário para realizar seus cálculos. Em vez disso, eles determinam dinamicamente uma sequência de passos de tempo internos, muito menores e mais numerosos, com o objetivo de manter o erro de truncamento local abaixo de uma tolerância pré-definida (\textit{RelTol} e \textit{AbsTol}). 
 
 Portanto, optou-se por utilizar uma malha temporal com 100 pontos, que se mostrou apropriada para a resolução do problema em questão.
 
@@ -25,19 +25,19 @@ Portanto, optou-se por utilizar uma malha temporal com 100 pontos, que se mostro
     \caption{Erro numérico no refino da malha temporal.}
     \begin{tabular}{ccc}
         \textbf{Pontos na Malha} & \textbf{Tamanho da Malha {[}s{]}} & \textbf{Erro} \\ \hline
-        11                       & 0,15                                          & -             \\
-        21                       & 0,075                                         & 0             \\
-        41                       & 0,0375                                        & 0             \\
-        81                       & 0,0188                                        & 0             \\
-        161                      & 0,00938                                       & 0             \\
-        321                      & 0,00469                                       & 0             \\
-        641                      & 0,00234                                       & 0             \\
-        1.281                     & 0,00117                                       & 0             \\
-        2.561                     & 5,86E-04                                      & 1,26E-12      \\
-        5.121                     & 2,93E-04                                      & 9,66E-13      \\
-        10.241                    & 1,46E-04                                      & 5,50E-12      \\
-        20.481                    & 7,32E-05                                      & 3,94E-12      \\
-        40.961                    & 3,66E-05                                      & 0,000519651  
+        11     & 0,15     & - \\
+        21     & 0,075    & 0 \\
+        41     & 0,0375   & 0 \\
+        81     & 0,0188   & 0 \\
+        161    & 0,00938  & 0 \\
+        321    & 0,00469  & 0 \\
+        641    & 0,00234  & 0 \\
+        1.281  & 0,00117  & 0 \\
+        2.561  & 5,86E-04 & 0 \\
+        5.121  & 2,93E-04 & 0 \\
+        10.241 & 1,46E-04 & 0 \\
+        20.481 & 7,32E-05 & 0 \\
+        40.961 & 3,66E-05 & 0  
     \end{tabular}
     \source{Autor, 2023.}
     \label{tab:error_in_the_temporal_mesh}
@@ -55,35 +55,43 @@ Para a presente análise, buscou-se analisar o máximo erro absoluto de uma malh
     \epsilon = \max | \Delta \theta | = \max | \theta(r_{n+1},t) - \theta(r_{n},t) |
 \end{gather}
 
-Através do estudo do refinamento da malha temporal, pode-se observar que, para malhas com um número de pontos variando de 76 a 151, não foram observados erros significativos, como registrado na Tabela \ref{tab:error_in_the_spatial_mesh}. Quando o número de pontos variou de 151 para 2.401, observou-se uma discrepância praticamente insignificante.
-
-No entanto, é importante destacar que, para malhas com mais de 2.401 pontos, o erro passou a ser significativo. Novamente, essa discrepância pode ser atribuída à formação de singularidades resultantes de um refinamento excessivo da malha em conjunto à tolerância de erro absoluto e/ou relativo predefinida no solver utilizado.
-
-Portanto, optou-se por utilizar uma malha espacial com 100 pontos, que se mostrou apropriada para a resolução do problema em questão.
+O método numérico implementado converge, o que valida a simulação. Isso é evidenciado pela diminuição consistente do ``Erro Máximo'' à medida que a malha espacial é refinada (o número de pontos $n_r$ aumenta e o passo $\Delta r$ diminui, como registrado na Tabela \ref{tab:error_in_the_spatial_mesh}.
 
 \begin{table}[H]
     \centering
     \caption{Erro numérico no refino da malha espacial.}
     \begin{tabular}{ccc}
-        \textbf{Pontos na   Malha} & \textbf{Tamanho da Malha} & \textbf{Erro} \\ \hline
-        76                         & 0,0133                    & -             \\
-        151                        & 0,00667                   & 0             \\
-        301                        & 0,00333                   & 3,51E-05      \\
-        601                        & 0,00167                   & 1,14E-05      \\
-        1.201                      & 8,33E-04                  & 2,19E-05      \\
-        2.401                      & 4,17E-04                  & 1,18E-05      \\
-        4.801                      & 2,08E-04                  & 0,00021       \\
-        9.601                      & 1,04E-04                  & 0,00046      
+        \textbf{Pontos na   Malha} & \textbf{Tamanho da Malha} & \textbf{Erro} \\
+        \hline
+        76   & 0,0133     & -          \\
+        151  & 0,00666000 & 0,06208713 \\
+        301  & 0,00333000 & 0,03133610 \\
+        601  & 0,00166500 & 0,01692421 \\
+        1.201 & 0,00083250 & 0,00698768 \\
+        2.401 & 0,00041625 & 0,00378524 \\
+        4.801 & 0,00020813 & 0,00417690 \\
+        9.601 & 0,00010406 & 0,00141474
     \end{tabular}
     \source{Autor, 2023.}
     \label{tab:error_in_the_spatial_mesh}
 \end{table}
 
+Observa-se um comportamento anômalo entre as malhas de 2.401 e 4.801 pontos, onde o erro aumenta ligeiramente (de 0,00378524 para 0,00417690). As causas mais prováveis são:
+
+\begin{itemize}
+    \item Interação entre Erros: O erro total é uma combinação do erro de discretização espacial (que está sendo reduzido) e do erro de discretização temporal (que está fixo). Quando o erro espacial se torna muito pequeno, o erro total passa a ser dominado pelo erro temporal ou pela tolerância do solver, e a sua diminuição pode não ser mais monotônica.
+    \item Erro da Solução de Referência: O erro é calculado em relação à solução da malha seguinte, que também é uma aproximação. Pequenas oscilações podem ocorrer devido a esta característica do método de análise.
+\end{itemize}
+
+A tendência de convergência é retomada no refinamento seguinte, confirmando que se trata de uma oscilação local e não de uma divergência.
+
+Portanto, optou-se por utilizar uma malha espacial com 9.601 pontos, que se mostrou apropriada para a resolução do problema em questão.
+
 %Para mais detalhes, o Apêndice \ref{att:spatial_mesh_convergence_tables} apresenta os resultados do refino de malha espacial através de tabelas de convergência.
 
 \section{Perfis de Transferência de Calor}
 
-Nesta seção, discutiremos os resultados obtidos para quatro formas de geração de calor. Além disso, faremos uma comparação com os resultados apresentados por \citet{soares2017}, que por sua vez se baseou no trabalho de \citet{bhattacharya2001}. É relevante mencionar que os resultados de \citet{soares2017} foram obtidos digitalmente, utilizando um software para coletar pontos em curvas. Portanto, devemos considerar que alguns erros foram introduzidos durante esse processo.
+Nesta seção, discutiremos os resultados obtidos para quatro formas de geração de calor. Além disso, faremos uma comparação com os resultados apresentados por \citet{soares2017}, que por sua vez se baseou no trabalho de \citet{bhattacharya2001}. É relevante mencionar que os resultados de \citet{soares2017} foram obtidos digitalmente, utilizando um software para coletar pontos em curvas. Portanto, devemos considerar que alguns erros podem surgir durante esse processo.
 
 Para todos os casos, inicialmente o valor do termo fonte de calor uniforme adimensional (\(G ^*\)) foi considerado igual a \(32,4\) e o número de \textit{Biot} foi considerado igual a \(15\), ambos seguindo a literatura.
 
@@ -98,22 +106,22 @@ A primeira forma de geração de calor foi proposta por \citet{bhattacharya2001}
 
 \begin{figure}[H]
     \centering
-    \caption{Perfis de temperatura para primeira forma de geração de calor: (a) perspectiva isométrica; (b) vista superior.}
+    \caption{Perfis de temperatura para primeira forma de geração de calor.}
     
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=1\linewidth]{figures/results/Fig01.png} 
-        \caption{}
+        \caption{perspectiva isométrica.}
     \end{subfigure}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=1\linewidth]{figures/results/Fig02.png}
-        \caption{}
+        \caption{vista superior.}
     \end{subfigure}
     
     \source{Autor, 2023.}
     \label{fig:surface01}
 \end{figure}
 
-O perfil de temperatura apresentado na forma de superfície na Figura \ref{fig:surface01} apresenta o variação de temperatura (adimensionalizada) através do raio da vareta de combustível, considerando a primeira forma de geração de calor, conforme equação \ref{eq:first_form_of_heat}.
+O perfil de temperatura apresentado na forma de superfície na Figura \ref{fig:surface01} apresenta a variação de temperatura (adimensionalizada) através do raio da vareta de combustível, considerando a primeira forma de geração de calor, conforme equação \ref{eq:first_form_of_heat}.
 
 Ao longo de todo o período de tempo, a origem da vareta exibiu o valor máximo de temperatura, enquanto a extremidade manteve a temperatura mínima. Esse padrão era esperado, considerando a fonte de calor na origem, que se propaga ao longo da vareta em direção à extremidade e, por fim, a superfície da vareta apresentando um resfriamento convectivo.
 
@@ -127,7 +135,7 @@ Observou-se, ainda, que a origem da vareta demonstrou um comportamento com uma t
     \label{fig:profile01}
 \end{figure}
 
-Resultados análogos à Figura \ref{fig:surface01} foram apresentados na Figura \ref{fig:profile01}, mas dessa vez na forma de curvas para quatro instantes de tempos. Os resultados foram comparados com os apresentados por \citet{soares2017}, em todos os casos houve concordância entre os perfis de temperatura, com eventuais divergências decorrentes do método de obtenção dos dados, conforme supradito.
+Resultados análogos à Figura \ref{fig:surface01} foram apresentados na Figura \ref{fig:profile01}, mas dessa vez na forma de curvas para quatro instantes de tempo. Os resultados foram comparados com os apresentados por \citet{soares2017}, em todos os casos houve concordância entre os perfis de temperatura, com eventuais divergências decorrentes do método de obtenção dos dados (conforme supradito) e/ou da qualidade da malha espacial.
 
 \subsection{Segunda Forma de Geração de Calor}
 
@@ -140,15 +148,15 @@ A segunda forma de geração de calor foi proposta por \citet{bhattacharya2001} 
 
 \begin{figure}[H]
     \centering
-    \caption{Perfis de temperatura para segunda forma de geração de calor: (a) perspectiva isométrica; (b) vista superior.}
+    \caption{Perfis de temperatura para segunda forma de geração de calor.}
     
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=1\linewidth]{figures/results/Fig04.png} 
-        \caption{}
+        \caption{perspectiva isométrica.}
     \end{subfigure}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=1\linewidth]{figures/results/Fig05.png}
-        \caption{}
+        \caption{vista superior.}
     \end{subfigure}
     
     \source{Autor, 2023.}
@@ -171,7 +179,7 @@ Observou-se, ainda, que que todos os pontos do raio demonstraram um comportament
     \label{fig:profile02}
 \end{figure}
 
-Resultados análogos à Figura \ref{fig:surface02} foram apresentados na Figura \ref{fig:profile02}, mas dessa vez na forma de curvas para quatro instantes de tempos. Os resultados foram comparados com os apresentados por \citet{soares2017}, em todos os casos houve concordância entre os perfis de temperatura, com eventuais divergências decorrentes do método de obtenção dos dados, conforme supradito.
+Resultados análogos à Figura \ref{fig:surface02} foram apresentados na Figura \ref{fig:profile02}, mas dessa vez na forma de curvas para quatro instantes de tempos. Os resultados foram comparados com os apresentados por \citet{soares2017}, em todos os casos houve concordância entre os perfis de temperatura, com eventuais divergências decorrentes do método de obtenção dos dados (conforme supradito) e/ou da qualidade da malha espacial.
 
 \subsection{Terceira Forma de Geração de Calor}
 
@@ -186,15 +194,15 @@ Nela, o valor do coeficiente \(c_1\) foi considerado igual a \(1\), seguindo a l
 
 \begin{figure}[H]
     \centering
-    \caption{Perfis de temperatura para terceira forma de geração de calor: (a) perspectiva isométrica; (b) vista superior.}
+    \caption{Perfis de temperatura para terceira forma de geração de calor.}
     
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=1\linewidth]{figures/results/Fig07.png} 
-        \caption{}
+        \caption{perspectiva isométrica.}
     \end{subfigure}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=1\linewidth]{figures/results/Fig08.png}
-        \caption{}
+        \caption{vista superior.}
     \end{subfigure}
     
     \source{Autor, 2023.}
@@ -210,17 +218,17 @@ Observou-se, ainda, que com o passar do tempo houve um aumento expressivo de tem
 \begin{figure}[H]
     \centering
     \caption{Comparativo de resultados com a literatura para terceira forma de geração de calor.}
-    \includegraphics[scale=0.7]{figures/results/Fig09.png}
+    \includegraphics[scale=0.5]{figures/results/Fig09.png}
     \source{Autor, 2023.}
     \label{fig:profile03}
 \end{figure}
 
-Resultados análogos à Figura \ref{fig:surface03} foram apresentados na Figura \ref{fig:profile03}, mas dessa vez na forma de curvas para quatro instantes de tempos. Os resultados foram comparados com os apresentados por \citet{soares2017}, em todos os casos houve concordância entre os perfis de temperatura, com eventuais divergências decorrentes do método de obtenção dos dados, conforme supradito.
+Resultados análogos à Figura \ref{fig:surface03} foram apresentados na Figura \ref{fig:profile03}, mas dessa vez na forma de curvas para quatro instantes de tempos. Os resultados foram comparados com os apresentados por \citet{soares2017}, em todos os casos houve concordância entre os perfis de temperatura, com eventuais divergências decorrentes do método de obtenção dos dados (conforme supradito) e/ou da qualidade da malha espacial.
 
 \begin{figure}[H]
     \centering
     \caption{Influência nos perfis de temperatura devido a variação no coeficiente \(c_1\) da terceira forma de geração de calor.}
-    \includegraphics[scale=0.7]{figures/results/Fig10.png}
+    \includegraphics[scale=0.5]{figures/results/Fig10.png}
     \source{Autor, 2023.}
     \label{fig:influence_of_coefficient_c1}
 \end{figure}
@@ -230,7 +238,7 @@ Em seguida, buscou-se estudar a influência do coeficiente \(c_1\) nos perfis de
 \begin{figure}[H]
     \centering
     \caption{Influência nos perfis de temperatura devido a variação no número de \(Bi\) na terceira forma de geração de calor.}
-    \includegraphics[scale=0.7]{figures/results/Fig11.png}
+    \includegraphics[scale=0.5]{figures/results/Fig11.png}
     \source{Autor, 2023.}
     \label{fig:influence_of_Biot_on_third_heat_generation}
 \end{figure}
@@ -250,15 +258,15 @@ Nela, os coeficientes \(c_2\) e \(c_3\) foram considerados ambos iguais a \(1\),
 
 \begin{figure}[H]
     \centering
-    \caption{Perfis de temperatura para quarta forma de geração de calor: (a) perspectiva isométrica; (b) vista superior.}
+    \caption{Perfis de temperatura para quarta forma de geração de calor.}
     
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=1\linewidth]{figures/results/Fig12.png} 
-        \caption{}
+        \caption{perspectiva isométrica.}
     \end{subfigure}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=1\linewidth]{figures/results/Fig13.png}
-        \caption{}
+        \caption{vista superior.}
     \end{subfigure}
     
     \source{Autor, 2023.}
@@ -274,17 +282,17 @@ Observou-se, ainda, que com o passar do tempo houve um aumento expressivo de tem
 \begin{figure}[H]
     \centering
     \caption{Comparativo de resultados com a literatura para quarta forma de geração de calor.}
-    \includegraphics[scale=0.7]{figures/results/Fig14.png}
+    \includegraphics[scale=0.5]{figures/results/Fig14.png}
     \source{Autor, 2023.}
     \label{fig:profile04}
 \end{figure}
 
-Resultados análogos à Figura \ref{fig:surface04} foram apresentados na Figura \ref{fig:profile04}, mas dessa vez na forma de curvas para quatro instantes de tempos. Os resultados foram comparados com os apresentados por \citet{soares2017}, em todos os casos houve concordância entre os perfis de temperatura, com eventuais divergências decorrentes do método de obtenção dos dados, conforme supradito.
+Resultados análogos à Figura \ref{fig:surface04} foram apresentados na Figura \ref{fig:profile04}, mas dessa vez na forma de curvas para quatro instantes de tempos. Os resultados foram comparados com os apresentados por \citet{soares2017}, em todos os casos houve concordância entre os perfis de temperatura, com eventuais divergências decorrentes do método de obtenção dos dados (conforme supradito) e/ou da qualidade da malha espacial.
 
 \begin{figure}[H]
     \centering
     \caption{Influência nos perfis de temperatura devido a variação no número de \(Bi\) na quarta forma de geração de calor.}
-    \includegraphics[scale=0.7]{figures/results/Fig15.png}
+    \includegraphics[scale=0.5]{figures/results/Fig15.png}
     \source{Autor, 2023.}
     \label{fig:influence_of_Biot_on_fourth_heat_generation}
 \end{figure}

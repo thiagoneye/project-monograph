@@ -41,7 +41,7 @@ Logo, segundo \citet{soares2017}, o problema é modelado pela equação da condu
     \label{eq:heat_equation}
 \end{gather}
 
-Submetida as seguintes condições de contorno na direção radial:
+Submetida às seguintes condições de contorno na direção radial:
 
 \begin{gather}
     \dfrac{\partial T (t ' , 0)}{\partial r '} = 0
@@ -53,9 +53,9 @@ Submetida as seguintes condições de contorno na direção radial:
     \label{eq:boundary_condition_at_the_end}
 \end{gather}
 
-Sendo a equação \ref{eq:boundary_condition_at_the_origin} de segundo tipo (condição de contorno de Neumann), ou seja, especifica os valores que a derivada de uma solução deve tomar no contorno do domínio; enquanto que a equação \ref{eq:boundary_condition_at_the_end} de terceiro tipo (condição de contorno de Robin), ou seja, é especifica uma combinação linear dos valores de uma função e dos valores de sua derivada no limite do domínio.
+Sendo a equação \ref{eq:boundary_condition_at_the_origin} de segundo tipo (condição de contorno de Neumann), ou seja, especifica os valores que a derivada de uma solução deve tomar no contorno do domínio; enquanto a equação \ref{eq:boundary_condition_at_the_end} de terceiro tipo (condição de contorno de Robin), ou seja, especifica uma combinação linear dos valores de uma função e dos valores de sua derivada no limite do domínio.
 
-Segundo \citet{soares2017}, a equação \ref{eq:boundary_condition_at_the_end} representa a troca calor por convecção com o ambiente através do fluido refrigerante. Além disso, observa-se a consideração da troca de calor na interface de contato entre a vareta combustível e o material de revestimento, na região de gap, assim como a condução no revestimento. Esses efeitos são incorporados no coeficiente de transferência de calor por convecção entre o cilindro e o refrigerante, como uma primeira aproximação para obter o perfil de temperatura transitória no elemento.
+Segundo \citet{soares2017}, a equação \ref{eq:boundary_condition_at_the_end} representa a troca de calor por convecção com o ambiente através do fluido refrigerante. Além disso, observa-se a consideração da troca de calor na interface de contato entre a vareta combustível e o material de revestimento, na região de gap, assim como a condução no revestimento. Esses efeitos são incorporados no coeficiente de transferência de calor por convecção entre o cilindro e o refrigerante, como uma primeira aproximação para obter o perfil de temperatura transitória no elemento.
 
 Iremos adimensionalizar o problema, para tornar possível uma resolução mais simplificada das equações diferenciais parciais e a obtenção de soluções para diversas situações de transferência de energia. Esse processo envolve a introdução de parâmetros adimensionais, que desempenham um papel fundamental na análise e na modelagem do fenômeno. Os parâmetros adimensionais usados incluem:
 
@@ -103,74 +103,79 @@ A condição de contorno \ref{eq:boundary_condition_at_the_dimensionless_end} po
     \label{eq:boundary_condition_at_the_manipulated_dimensionless_end}
 \end{gather}
 
-\section{Discretização Numérica}
+\section{Discretização Numérica} 
 
-No método das linhas as derivadas parciais espaciais da EDP são aproximadas algebricamente \citep{schiesser2009}, no nosso caso por diferenças finitas utilizando expansão de séries de Taylor.
+No método das linhas, as derivadas parciais espaciais da EDP são aproximadas algebricamente \citep{schiesser2009}, no nosso caso, por diferenças finitas utilizando a expansão de séries de Taylor. 
 
-A derivada de primeira ordem é expressa por:
+A derivada de primeira ordem para os nós internos é expressa por: 
 
 \begin{gather}
     \dfrac{\partial \theta _i}{\partial r} = \dfrac{\theta _{i+1} - \theta _{i-1}}{2 \Delta r} + O(\Delta r^2), \quad 1 \leq i \leq N
     \label{eq:first_order_derivative}
 \end{gather}
 
-Já a de segunda ordem é expressa por:
+Já a de segunda ordem é expressa por: 
 
 \begin{gather}
-    \dfrac{\partial ^2 \theta _i}{\partial r ^2} = \dfrac{\theta _{i+1} - 2 \theta _i + \theta _{i-1}}{\Delta r^2} + O(\Delta r^2), \quad 1 \leq i \leq N
-    \label{eq:second_order_derivative}
+\dfrac{\partial ^2 \theta _i}{\partial r ^2} = \dfrac{\theta _{i+1} - 2 \theta _i + \theta _{i-1}}{\Delta r^2} + O(\Delta r^2), \quad 1 \leq i \leq N
+\label{eq:second_order_derivative}
 \end{gather}
 
-Manipulando a equação \ref{eq:dimensionless_heat_equation} e inserindo \ref{eq:first_order_derivative} e \ref{eq:second_order_derivative}, temos que:
+Manipulando a equação \ref{eq:dimensionless_heat_equation} e inserindo \ref{eq:first_order_derivative} e \ref{eq:second_order_derivative}, temos a equação discretizada para os nós internos: 
 
 \begin{gather}
-    \dfrac{1}{r} \dfrac{\partial \theta}{\partial r} + \dfrac{\partial ^2 \theta}{\partial r ^2} + G(r, t) = \dfrac{\partial \theta}{\partial t} \\   
-    \dfrac{\partial \theta _i}{\partial t} \approx \dfrac{1}{r} \dfrac{\theta _{i+1} - \theta _{i-1}}{2 \Delta r} + \dfrac{\theta _{i+1} - 2 \theta _i + \theta _{i-1}}{\Delta r^2} + G(r, t), \quad 1 \leq i \leq N
-    \label{eq:discretized_heat_equation}
+\dfrac{1}{r} \dfrac{\partial \theta}{\partial r} + \dfrac{\partial ^2 \theta}{\partial r ^2} + G(r, t) = \dfrac{\partial \theta}{\partial t} \\   
+\dfrac{\partial \theta _i}{\partial t} \approx \dfrac{1}{r} \dfrac{\theta _{i+1} - \theta _{i-1}}{2 \Delta r} + \dfrac{\theta _{i+1} - 2 \theta _i + \theta _{i-1}}{\Delta r^2} + G(r, t), \quad 1 \leq i \leq N
+\label{eq:discretized_heat_equation}
 \end{gather}
 
-Vale salientar que, para os nós \(i = 1\) e \(i = N\), as variáveis \(\theta _{i-1}\) e \(\theta _{i+1}\) (respectivamente) são fictícias. Portanto, através das condições de contorno, é necessário realizar as correções para essas situações.
+Vale salientar que, para os nós \(i = 1\) e \(i = N\), as variáveis \(\theta _{i-1}\) e \(\theta _{i+1}\) (respectivamente) são fictícias. Portanto, através das condições de contorno, é necessário realizar as correções para essas situações. 
 
-\subsection{Condições de Contorno}
+\subsection{Condições de Contorno} 
 
-Das equações \ref{eq:boundary_condition_at_dimensionless_origin} e \ref{eq:first_order_derivative}, temos que:
+Das equações \ref{eq:boundary_condition_at_dimensionless_origin} e \ref{eq:first_order_derivative}, temos que: 
+
+\begin{gather} 
+\dfrac{\partial \theta}{\partial r} \approx \dfrac{\theta _{i+1} - \theta _{i-1}}{2 \Delta r} \approx 0, \quad i = 1 \\ 
+\theta _{i-1} \approx \theta _{i+1}, \quad i = 1 
+\label{eq:correction_at_the_origin} 
+\end{gather} 
+
+O termo $\frac{1}{r}\frac{\partial \theta}{\partial r}$ na EDP apresenta uma indeterminação na origem. A abordagem rigorosa é analisar o limite da EDP contínua antes de discretizar. Pela Regra de L'Hôpital, $\lim_{r \to 0} \frac{1}{r}\frac{\partial \theta}{\partial r} = \frac{\partial^2 \theta}{\partial r^2}$. Assim, a EDP na origem ($i=1$) se torna:
 
 \begin{gather}
-    \dfrac{\partial \theta}{\partial r} \approx \dfrac{\theta _{i+1} - \theta _{i-1}}{2 \Delta r} \approx 0, \quad i = 1 \\
-    \theta _{i-1} \approx \theta _{i+1}, \quad i = 1
-    \label{eq:correction_at_the_origin}
+\dfrac{\partial \theta}{\partial t} = 2 \dfrac{\partial ^2 \theta}{\partial r ^2} + G, \quad \text{para } r=0
 \end{gather}
 
-Logo, inserindo \ref{eq:correction_at_the_origin} em \ref{eq:discretized_heat_equation}, temos que:
+Discretizando esta forma simplificada para $i=1$ e utilizando a relação do ponto fictício (\ref{eq:correction_at_the_origin}), a equação para o nó central é:
 
-\begin{gather}
-     \dfrac{\partial \theta _i}{\partial t} \approx 2 \dfrac{\theta _{i+1} - \theta _i}{\Delta x^2} + G, \quad i = 1
-     \label{eq:correction_of_the_boundary_condition_at_the_origin}
-\end{gather}
+\begin{gather} 
+\dfrac{\partial \theta _i}{\partial t} \approx 2 \left( \dfrac{\theta_{i+1} - 2\theta_i + \theta_{i-1}}{\Delta r^2} \right) + G \approx 2 \left( \dfrac{2\theta_{i+1} - 2\theta_i}{\Delta r^2} \right) + G \\
+\dfrac{\partial \theta _i}{\partial t} \approx 4 \dfrac{\theta _{i+1} - \theta _i}{\Delta r^2} + G, \quad i = 1
+\label{eq:correction_of_the_boundary_condition_at_the_origin} 
+\end{gather} 
 
-Obtemos que \ref{eq:correction_of_the_boundary_condition_at_the_origin} é a condição de correção do ponto fictício na origem.
+Obtemos que \ref{eq:correction_of_the_boundary_condition_at_the_origin} é a condição de correção do ponto fictício na origem. 
 
-Dessa vez, das equações \ref{eq:boundary_condition_at_the_manipulated_dimensionless_end} e \ref{eq:first_order_derivative}, temos que:
+Dessa vez, das equações \ref{eq:boundary_condition_at_the_manipulated_dimensionless_end} e \ref{eq:first_order_derivative}, temos que: 
 
-\begin{gather}
-    \dfrac{\theta _{i+1} - \theta _{i-1}}{2 \Delta r} + Bi \theta _i \approx 0, \quad i = N \\
-    \theta _{i+1} \approx \theta _{i-1} - 2 Bi \Delta r \theta _i, \quad i = N
-    \label{eq:correction_at_end}
-\end{gather}
+\begin{gather} 
+\dfrac{\theta _{i+1} - \theta _{i-1}}{2 \Delta r} + Bi \theta _i \approx 0, \quad i = N \\ 
+\theta _{i+1} \approx \theta _{i-1} - 2 Bi \Delta r \theta _i, \quad i = N 
+\label{eq:correction_at_end} 
+\end{gather} 
 
-Logo, inserindo \ref{eq:correction_at_end} em \ref{eq:discretized_heat_equation}, temos que:
+Logo, inserindo \ref{eq:correction_at_end} em \ref{eq:discretized_heat_equation}, temos que: 
 
-\begin{gather}
-     \dfrac{\partial \theta _i}{\partial t} \approx - \dfrac{Bi \theta _i}{r} + \dfrac{2 \theta _{i-1} - 2 (Bi \Delta r + 1) \theta _i}{\Delta r^2}, \quad i = N
-     \label{eq:correction_of_the_boundary_condition_at_end}
-\end{gather}
+\begin{gather} 
+\dfrac{\partial \theta _i}{\partial t} \approx - \dfrac{Bi \theta _i}{r_i} + \dfrac{2 \theta _{i-1} - 2 (Bi \Delta r + 1) \theta _i}{\Delta r^2} + G(r_i,t), \quad i = N
+\label{eq:correction_of_the_boundary_condition_at_end} 
+\end{gather} 
 
-Obtemos que \ref{eq:correction_of_the_boundary_condition_at_end} é a condição de correção do ponto fictício no superfície.
+Obtemos que \ref{eq:correction_of_the_boundary_condition_at_end} é a condição de correção do ponto fictício na superfície.
 
 \section{Solução do Sistema de Equações Diferenciais}
 
-Existem diversas abordagens para resolver sistemas de equações diferenciais, cada uma adequada às características do problema e às condições iniciais ou de contorno. Neste contexto, utilizamos um solver numérico dentro do software Matlab (licenciado pela presente instituição de ensino), que oferece uma variedade de algoritmos eficazes para a solução desses sistemas, incluindo os solvers ode45, ode23, ode78, ode15s, ode23t e ode15i, \citep{matlab_ode15s}.
+Existem diversas abordagens para resolver sistemas de equações diferenciais, cada uma adequada às características do problema e às condições iniciais ou de contorno. Neste contexto, utilizamos um solver numérico dentro da biblioteca SciPy da linguagem de programação Python, que oferece uma variedade de algoritmos eficazes para a solução desses sistemas.
 
-No presente trabalho, optamos pelo solver ode15s devido à sua notável capacidade de lidar com sistemas de equações diferenciais que exibem comportamento rígido. Segundo \citet{matlab_stiff}, esse comportamento rígido ocorre quando o tamanho dos passos de integração é forçado a se tornar excessivamente pequeno em relação ao intervalo de integração, mesmo em regiões onde a curva da solução é suave. Esse problema pode levar a passos tão minúsculos que a integração se torna demorada e até inviável, tornando o ode15s uma escolha versátil para uma ampla gama de aplicações que envolvem mudanças abruptas e descontínuas nas equações diferenciais.
-
-
+No presente trabalho, optamos pelo solver ivp devido à sua notável capacidade de lidar com problemas de valor inicial para sistemas de equações diferenciais ordinárias.
